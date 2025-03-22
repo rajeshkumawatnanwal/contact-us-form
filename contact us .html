@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        form {
+            display: inline-block;
+            text-align: left;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+        <input type="text" id="name" placeholder="Your Name">
+        <p class="error" id="nameError"></p>
+        <input type="email" id="email" placeholder="Your Email">
+        <p class="error" id="emailError"></p>
+        <input type="text" id="subject" placeholder="Subject">
+        <p class="error" id="subjectError"></p>
+        <textarea id="message" placeholder="Your Message"></textarea>
+        <p class="error" id="messageError"></p>
+        <button type="submit">Submit</button>
+    </form>
+    <p id="successMessage" style="color: green; display: none;">Thank you for contacting us!</p>
+
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const subject = document.getElementById("subject").value.trim();
+            const message = document.getElementById("message").value.trim();
+
+            document.getElementById("nameError").textContent = name ? "" : "Name is required";
+            document.getElementById("emailError").textContent = (email && email.includes("@") && email.includes(".")) ? "" : "Enter a valid email";
+            document.getElementById("subjectError").textContent = subject ? "" : "Subject is required";
+            document.getElementById("messageError").textContent = message ? "" : "Message is required";
+            
+            isValid = name && email.includes("@") && email.includes(".") && subject && message;
+            
+            if (isValid) {
+                document.getElementById("successMessage").style.display = "block";
+                document.getElementById("contactForm").reset();
+            }
+        });
+    </script>
+</body>
+</html>
